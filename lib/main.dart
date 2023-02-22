@@ -10,11 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Underline App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Underline App'),
     );
   }
 }
@@ -29,39 +30,61 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
+          children: [
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              'Shop with great ',
+              softWrap: true,
+              style: TextStyle(
+                color: Colors.grey.shade700,
+                fontSize: 28,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            CustomPaint(
+              painter: MyCustomPainter(),
+              child: Text(
+                'value',
+                softWrap: true,
+                style: TextStyle(
+                  color: Colors.grey.shade700,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
+  }
+}
+
+class MyCustomPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    double yPosition = size.height / 1;
+    Paint paint = Paint();
+    paint.color = Colors.blue;
+    paint.style = PaintingStyle.stroke;
+    paint.strokeWidth = 2.0;
+    paint.strokeCap = StrokeCap.round;
+    paint.isAntiAlias = true;
+
+    canvas.drawLine(Offset(0, yPosition), Offset(size.width, yPosition), paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
   }
 }
