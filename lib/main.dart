@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:underline_app/widgets/curvy_line_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,54 +38,16 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Shop with great ',
-              softWrap: true,
-              style: TextStyle(
-                color: Colors.grey.shade700,
-                fontSize: 28,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            CustomPaint(
-              painter: MyCustomPainter(),
-              child: Text(
-                'value',
-                softWrap: true,
-                style: TextStyle(
-                  color: Colors.grey.shade700,
-                  fontSize: 28,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
+      body: const Center(
+        child: CurvyLineText(
+          baseText: 'Shop with great',
+          underlineText: 'value',
+          lineColor: Colors.blue,
+          strokeWidth: 2.0,
+          heightCurve: 10.0,
+          fontSize: 28,
         ),
       ),
     );
-  }
-}
-
-class MyCustomPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    double yPosition = size.height / 1;
-    Paint paint = Paint();
-    paint.color = Colors.blue;
-    paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = 2.0;
-    paint.strokeCap = StrokeCap.round;
-    paint.isAntiAlias = true;
-
-    canvas.drawLine(Offset(0, yPosition), Offset(size.width, yPosition), paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
   }
 }
